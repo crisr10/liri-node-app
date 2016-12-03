@@ -3,29 +3,12 @@ var keys = require('./keys.js');
 var title = "";
 var nodeArgs = process.argv;
 
-function fullTitle() {
-
-if (nodeArgs.length<5) {
-	title = process.argv[3];
-} else if (nodeArgs.length>=5) {
-
-// Loop through all the words in the node argument
-// And do a little for-loop magic to handle the inclusion of "+"s
-
-		for (var i = 3; i < nodeArgs.length; i++) {
-		  if (i > 2 && i < nodeArgs.length) {
-		    title = title + "+" + nodeArgs[i];
-		  }
-		  else {
-		    title += nodeArgs[i];
-		  }
-		}
-	}
-}
-
-if (action==='movie-this') {
-
-// Include the request npm package (Don't forget to run "npm install request" in this folder first!)
+function movieThis() {
+	if (nodeArgs.length<4) {
+		console.log('If you haven\'t watched "Mr. Nobody," then you should: http://www.imdb.com/title/tt0485947/');
+    	console.log('It\'s on Netflix!');
+	} else if (nodeArgs.length>3) {
+	// Include the request npm package (Don't forget to run "npm install request" in this folder first!)
 	var request = require("request");
 	fullTitle();
 
@@ -54,8 +37,9 @@ if (action==='movie-this') {
 		  }
 		});
 	}// else if ()
+}
 
-else if (action==='my-tweets') {
+function myTweets(){
 	var Twitter = require('twitter');
 	var twitterKeys = keys.twitterKeys;
 
@@ -64,17 +48,32 @@ else if (action==='my-tweets') {
 	var params = {screen_name: 'CristianRocas'};
 	client.get('statuses/user_timeline', params, function(error, tweets, response) {
 	  if (!error) {
-	    console.log(tweets[0]);
+	  	for (var i=0; i<tweets.length;i++) {
+	  		console.log('========================');
+	  		console.log(tweets[i].text);
+	  		console.log(tweets[i].created_at);
+	  		console.log('========================');
+	  	}
 	  }
 	});
 }
 
-else if (action==='spotify-this-song'){
-	var spotify = require('spotify');
- 	
- 	fullTitle();
+function spotifyThis() {
 
-	spotify.search({ type: 'track', query: title, limit:1 }, function(err, data) {
+	if (nodeArgs.length<4) {
+		title = 'The+Sign';
+		spotifyData();
+
+	} else if (nodeArgs.length>3) {
+		fullTitle();
+		spotifyData();
+	}
+}
+
+function spotifyData() {
+
+	var spotify = require('spotify');
+	spotify.search({ type: 'track', query: title}, function(err, data) {
 	    if ( err ) {
 	        console.log('Error occurred: ' + err);
 	        return;
@@ -84,4 +83,37 @@ else if (action==='spotify-this-song'){
 	    console.log('Preview Link: '+data.tracks.items[0].preview_url);
 	    console.log('Album: '+data.tracks.items[0].album.name);
 	});
+}
+
+function fullTitle() {
+
+	// 	Check if the user inputer a name longer than 1 word
+	if (nodeArgs.length<5) {
+
+		title = process.argv[3];
+
+	} else if (nodeArgs.length>=5) {
+
+	// Loop through all the words in the node argument
+	// And do a little for-loop magic to handle the inclusion of "+"s
+
+		for (var i = 3; i < nodeArgs.length; i++) {
+		  if (i > 2 && i < nodeArgs.length) {
+		    title = title + "+" + nodeArgs[i];
+		  }
+		  else {
+		    title += nodeArgs[i];
+		  }
+		}
+	}
+}
+
+if (action==='movie-this') {
+	movieThis();
+}
+else if (action==='my-tweets') {
+	myTweets();
+}
+else if (action==='spotify-this-song'){
+	spotifyThis();
 }
