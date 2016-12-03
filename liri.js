@@ -1,35 +1,33 @@
 var action = process.argv[2];
 var keys = require('./keys.js');
 var title = "";
-function multipleWords () {
-
-// Store all of the arguments in an array
 var nodeArgs = process.argv;
+
+function fullTitle() {
+
+if (nodeArgs.length<5) {
+	title = process.argv[3];
+} else if (nodeArgs.length>=5) {
 
 // Loop through all the words in the node argument
 // And do a little for-loop magic to handle the inclusion of "+"s
 
 		for (var i = 3; i < nodeArgs.length; i++) {
-
 		  if (i > 2 && i < nodeArgs.length) {
-
 		    title = title + "+" + nodeArgs[i];
-
 		  }
-
 		  else {
-
 		    title += nodeArgs[i];
-
 		  }
 		}
+	}
 }
 
 if (action==='movie-this') {
 
 // Include the request npm package (Don't forget to run "npm install request" in this folder first!)
-var request = require("request");
-multipleWords();
+	var request = require("request");
+	fullTitle();
 
 		// Then run a request to the OMDB API with the movie specified
 		var queryUrl = "http://www.omdbapi.com/?t=" + title + "&y=&plot=short&r=json";
@@ -54,37 +52,36 @@ multipleWords();
 		    console.log("Rotten Tomatoes Rating: " + JSON.parse(body).Year);
 		    console.log("Rotten Tomatoes URL: " + JSON.parse(body).Year);
 		  }
-	});
-} 
+		});
+	}// else if ()
+
 else if (action==='my-tweets') {
 	var Twitter = require('twitter');
 	var twitterKeys = keys.twitterKeys;
 
-	var client = new Twitter({twitterKeys});
+	var client = new Twitter(twitterKeys);
 
-	console.log('this is the client'+ client);
-	var params = {screen_name: 'nodejs'};
+	var params = {screen_name: 'CristianRocas'};
 	client.get('statuses/user_timeline', params, function(error, tweets, response) {
 	  if (!error) {
-	    console.log(tweets.text);
+	    console.log(tweets[0]);
 	  }
 	});
 }
+
 else if (action==='spotify-this-song'){
 	var spotify = require('spotify');
  	
- 	multipleWords();
- 	console.log(title);
+ 	fullTitle();
 
-spotify.search({ type: 'track', query: title, limit:1 }, function(err, data) {
-    if ( err ) {
-        console.log('Error occurred: ' + err);
-        return;
-    }
-    console.log(data);
-    console.log('Artist: '+data.tracks.items[0].album.artists[0].name);
-    console.log('Song: '+data.tracks.items[0].name);
-    console.log('Preview Link: '+data.tracks.items[0].preview_url);
-    console.log('Album: '+data.tracks.items[0].album.artists[0].name);
-});
+	spotify.search({ type: 'track', query: title, limit:1 }, function(err, data) {
+	    if ( err ) {
+	        console.log('Error occurred: ' + err);
+	        return;
+	    }
+	    console.log('Artist: '+data.tracks.items[0].album.artists[0].name);
+	    console.log('Song: '+data.tracks.items[0].name);
+	    console.log('Preview Link: '+data.tracks.items[0].preview_url);
+	    console.log('Album: '+data.tracks.items[0].album.name);
+	});
 }
