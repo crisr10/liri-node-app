@@ -32,6 +32,17 @@ function movieThis() {
 		    console.log("* Cast: " + JSON.parse(body).Actors);
 		    console.log("* Rotten Tomatoes Rating: " + JSON.parse(body).tomatoUserRating);
 		    console.log("* Rotten Tomatoes URL: " + JSON.parse(body).tomatoURL);
+
+		    fs.appendFile('log.txt', '\n\nMovie This!');
+		    fs.appendFile('log.txt', "\n* Movie Name: " + JSON.parse(body).Title);
+		    fs.appendFile('log.txt', "\n* Release Year: " + JSON.parse(body).Year);
+		    fs.appendFile('log.txt', "\n* Rating: " + JSON.parse(body).imdbRating);
+		    fs.appendFile('log.txt', "\n* Country : " + JSON.parse(body).Country);
+		    fs.appendFile('log.txt', "\n* Language: " + JSON.parse(body).Language);
+		    fs.appendFile('log.txt', "\n* Plot: " + JSON.parse(body).Plot);
+		    fs.appendFile('log.txt', "\n* Cast: " + JSON.parse(body).Actors);
+		    fs.appendFile('log.txt', "\n* Rotten Tomatoes Rating: " + JSON.parse(body).tomatoUserRating);
+		    fs.appendFile('log.txt', "\n* Rotten Tomatoes URL: " + JSON.parse(body).tomatoURL);
 		  }
 		});
 	}// else if ()

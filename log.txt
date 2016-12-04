@@ -219,3 +219,35 @@ Sat Dec 03 23:03:30 +0000 2016
 -------------------------------------
 Ready to watch El Clasico #alamadrid #clasico https://t.co/5PXmXxYIkr
 Sat Dec 03 15:17:36 +0000 2016
+
+spotify-this-song
+* Artist: blink-182
+* Song: Stay Together For The Kids
+* Preview Link: https://p.scdn.co/mp3-preview/252a169ead4f39f7e73da2db3211859a8deaf7f2
+* Album: Take Off Your Pants And Jacket
+
+spotify-this-song
+* Artist: Eminem
+* Song: Lose Yourself - Soundtrack Version
+* Preview Link: https://p.scdn.co/mp3-preview/860db9bb3afedb2989ae36801ee823d21cb59613
+* Album: Curtain Call (Deluxe)
+* Movie Name: The Silence of the Lambs
+* Release Year: 1991
+* Rating: 8.6
+* Country : USA
+* Language: English
+* Plot: A young F.B.I. cadet must confide in an incarcerated and manipulative killer to receive his help on catching another serial killer who skins his victims.
+* Cast: Jodie Foster, Lawrence A. Bonney, Kasi Lemmons, Lawrence T. Wrentz
+* Rotten Tomatoes Rating: 4.1
+* Rotten Tomatoes URL: http://www.rottentomatoes.com/m/silence_of_the_lambs/
+
+Movie This!
+* Movie Name: The Silence of the Lambs
+* Release Year: 1991
+* Rating: 8.6
+* Country : USA
+* Language: English
+* Plot: A young F.B.I. cadet must confide in an incarcerated and manipulative killer to receive his help on catching another serial killer who skins his victims.
+* Cast: Jodie Foster, Lawrence A. Bonney, Kasi Lemmons, Lawrence T. Wrentz
+* Rotten Tomatoes Rating: 4.1
+* Rotten Tomatoes URL: http://www.rottentomatoes.com/m/silence_of_the_lambs/
