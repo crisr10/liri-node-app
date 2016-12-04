@@ -2,6 +2,7 @@ var action = process.argv[2];
 var keys = require('./keys.js');
 var title = "";
 var nodeArgs = process.argv;
+var fs = require('fs');
 
 function movieThis() {
 	if (nodeArgs.length<4) {
@@ -37,20 +38,27 @@ function movieThis() {
 }
 
 function myTweets(){
-	var Twitter = require('twitter');
 
+	var Twitter = require('twitter');
 	var twitterKeys = keys.twitterKeys;
 
 	var client = new Twitter(twitterKeys);
 
 	var params = {screen_name: 'CristianRocas'};
+
+	console.log('\n\nMy Tweets');
+	fs.appendFile('log.txt', '\n\nMy Tweets');
+
 	client.get('statuses/user_timeline', params, function(error, tweets, response) {
 	  if (!error) {
-	  	for (var i=0; i<20;i++) {
-	  		console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
-	  		console.log(tweets[i].text);
-	  		console.log(tweets[i].created_at);
-	  		console.log('~~~~~~~~~~~~~~~~  o  ~~~~~~~~~~~~~~~~~~');
+	  	for (var i=0; i<20;i++) {;
+	  		console.log('-------------------------------------');
+	  		console.log('Tweet: '+tweets[i].text);
+	  		console.log('Created: '+tweets[i].created_at);
+
+	  		fs.appendFile('log.txt', '\n-------------------------------------');
+		    fs.appendFile('log.txt', '\n'+tweets[i].text);
+		    fs.appendFile('log.txt', '\n'+tweets[i].created_at);
 	  	}
 	  }
 	});
@@ -73,7 +81,6 @@ function spotifyThis() {
 }
 // Get's the data from the JSON spotify query
 function spotifyData() {
-
 	var spotify = require('spotify');
 
 	spotify.search({ type: 'track', query: title}, function(err, data) {
@@ -85,6 +92,12 @@ function spotifyData() {
 	    console.log('* Song: '+data.tracks.items[0].name);
 	    console.log('* Preview Link: '+data.tracks.items[0].preview_url);
 	    console.log('* Album: '+data.tracks.items[0].album.name);
+
+	    fs.appendFile('log.txt', '\n\nspotify-this-song')
+	    fs.appendFile('log.txt', '\n* Artist: '+data.tracks.items[0].album.artists[0].name);
+	    fs.appendFile('log.txt', '\n* Song: '+data.tracks.items[0].name);
+	    fs.appendFile('log.txt', '\n* Preview Link: '+data.tracks.items[0].preview_url);
+	    fs.appendFile('log.txt', '\n* Album: '+data.tracks.items[0].album.name);
 	});
 }
 
