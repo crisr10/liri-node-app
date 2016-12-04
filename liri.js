@@ -5,18 +5,15 @@ var nodeArgs = process.argv;
 
 function movieThis() {
 	if (nodeArgs.length<4) {
-		console.log('If you haven\'t watched "Mr. Nobody," then you should: http://www.imdb.com/title/tt0485947/');
-    	console.log('It\'s on Netflix!');
+		console.log('* If you haven\'t watched "Mr. Nobody," then you should: http://www.imdb.com/title/tt0485947/');
+    	console.log('* It\'s on Netflix!');
 	} else if (nodeArgs.length>3) {
 	// Include the request npm package (Don't forget to run "npm install request" in this folder first!)
 	var request = require("request");
 	fullTitle();
 
 		// Then run a request to the OMDB API with the movie specified
-		var queryUrl = "http://www.omdbapi.com/?t=" + title + "&y=&plot=short&r=json";
-
-		// This line is just to help us debug against the actual URL.
-		console.log(queryUrl);
+		var queryUrl = "http://www.omdbapi.com/?t=" + title + "&y=&plot=short&r=json&tomatoes=true";
 
 		request(queryUrl, function(error, response, body) {
 
@@ -25,15 +22,15 @@ function movieThis() {
 
 		    // Parse the body of the site and recover just the imdbRating
 		    // (Note: The syntax below for parsing isn't obvious. Just spend a few moments dissecting it).
-		    console.log("Movie Name: " + JSON.parse(body).Title);
-		    console.log("Release Year: " + JSON.parse(body).Year);
-		    console.log("Rating: " + JSON.parse(body).imdbRating);
-		    console.log("Country : " + JSON.parse(body).Country);
-		    console.log("Language: " + JSON.parse(body).Language);
-		    console.log("Plot: " + JSON.parse(body).Plot);
-		    console.log("Cast: " + JSON.parse(body).Actors);
-		    console.log("Rotten Tomatoes Rating: " + JSON.parse(body).Year);
-		    console.log("Rotten Tomatoes URL: " + JSON.parse(body).Year);
+		    console.log("* Movie Name: " + JSON.parse(body).Title);
+		    console.log("* Release Year: " + JSON.parse(body).Year);
+		    console.log("* Rating: " + JSON.parse(body).imdbRating);
+		    console.log("* Country : " + JSON.parse(body).Country);
+		    console.log("* Language: " + JSON.parse(body).Language);
+		    console.log("* Plot: " + JSON.parse(body).Plot);
+		    console.log("* Cast: " + JSON.parse(body).Actors);
+		    console.log("* Rotten Tomatoes Rating: " + JSON.parse(body).tomatoUserRating);
+		    console.log("* Rotten Tomatoes URL: " + JSON.parse(body).tomatoURL);
 		  }
 		});
 	}// else if ()
@@ -41,6 +38,7 @@ function movieThis() {
 
 function myTweets(){
 	var Twitter = require('twitter');
+
 	var twitterKeys = keys.twitterKeys;
 
 	var client = new Twitter(twitterKeys);
@@ -48,46 +46,50 @@ function myTweets(){
 	var params = {screen_name: 'CristianRocas'};
 	client.get('statuses/user_timeline', params, function(error, tweets, response) {
 	  if (!error) {
-	  	for (var i=0; i<tweets.length;i++) {
-	  		console.log('========================');
+	  	for (var i=0; i<20;i++) {
+	  		console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
 	  		console.log(tweets[i].text);
 	  		console.log(tweets[i].created_at);
-	  		console.log('========================');
+	  		console.log('~~~~~~~~~~~~~~~~  o  ~~~~~~~~~~~~~~~~~~');
 	  	}
 	  }
 	});
 }
 
+// function to create the s[ptify query
 function spotifyThis() {
 
+	// If user didn't input a song, then it automatically looks for "The Sign"
 	if (nodeArgs.length<4) {
-		title = 'The+Sign';
+		title = 'The+Sign+Ace';
+		// Calls function that console logs what needes from the spotify API
 		spotifyData();
 
+	// User inputed a title
 	} else if (nodeArgs.length>3) {
 		fullTitle();
 		spotifyData();
 	}
 }
-
+// Get's the data from the JSON spotify query
 function spotifyData() {
 
 	var spotify = require('spotify');
+
 	spotify.search({ type: 'track', query: title}, function(err, data) {
 	    if ( err ) {
 	        console.log('Error occurred: ' + err);
 	        return;
 	    }
-	    console.log('Artist: '+data.tracks.items[0].album.artists[0].name);
-	    console.log('Song: '+data.tracks.items[0].name);
-	    console.log('Preview Link: '+data.tracks.items[0].preview_url);
-	    console.log('Album: '+data.tracks.items[0].album.name);
+	    console.log('* Artist: '+data.tracks.items[0].album.artists[0].name);
+	    console.log('* Song: '+data.tracks.items[0].name);
+	    console.log('* Preview Link: '+data.tracks.items[0].preview_url);
+	    console.log('* Album: '+data.tracks.items[0].album.name);
 	});
 }
 
+// 	Check if the user inputed a name longer than 1 word
 function fullTitle() {
-
-	// 	Check if the user inputer a name longer than 1 word
 	if (nodeArgs.length<5) {
 
 		title = process.argv[3];
@@ -107,6 +109,30 @@ function fullTitle() {
 		}
 	}
 }
+// this function grabs the song specified in random.txt
+function randomText() {
+
+	var fs = require('fs');
+
+	fs.readFile("random.txt", "utf8", function(error, data) {
+
+	  // Then split it by commas (to make it more readable)
+	  var dataArr = data.split(",");
+
+	  // We will then re-display the content as an array for later use.
+	  var randomSongQuo = dataArr[1];
+	  var randomSong = randomSongQuo.slice(1, 19);
+
+	  // We split the name of the song in order to make it a string that fits the spotify url
+	  var randomSongArray = randomSong.split(" ");
+
+	  for (var i=0; i<randomSongArray.length; i++) {
+	  	title = title+'+'+randomSongArray[i];
+	  }
+	  spotifyData();
+
+	});
+}
 
 if (action==='movie-this') {
 	movieThis();
@@ -117,3 +143,8 @@ else if (action==='my-tweets') {
 else if (action==='spotify-this-song'){
 	spotifyThis();
 }
+else if (action==='do-what-it-says') {
+	randomText();
+}
+
+
