@@ -1,5 +1,7 @@
 var action = process.argv[2];
 var keys = require('./keys.js');
+var Twitter = require('twitter');
+var spotify = require('spotify');
 var title = "";
 var nodeArgs = process.argv;
 var fs = require('fs');
@@ -50,7 +52,6 @@ function movieThis() {
 
 function myTweets(){
 
-	var Twitter = require('twitter');
 	var twitterKeys = keys.twitterKeys;
 
 	var client = new Twitter(twitterKeys);
@@ -92,7 +93,6 @@ function spotifyThis() {
 }
 // Get's the data from the JSON spotify query
 function spotifyData() {
-	var spotify = require('spotify');
 
 	spotify.search({ type: 'track', query: title}, function(err, data) {
 	    if ( err ) {
@@ -135,8 +135,6 @@ function fullTitle() {
 }
 // this function grabs the song specified in random.txt
 function randomText() {
-
-	var fs = require('fs');
 
 	fs.readFile("random.txt", "utf8", function(error, data) {
 
