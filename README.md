@@ -4,10 +4,10 @@ LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and R
 
 You can enter the following commands:
 
-1. node liri.js my-tweets.
+1. "node liri.js my-tweets"
 This will show your last 20 tweets and when they were created at in your terminal/bash window.
 
-1. node liri.js spotify-this-song '<song name here>'.
+2. "node liri.js spotify-this-song '<song name here>'"
 This will show the following information about the song in your terminal/bash window
     * Artist(s)
     * The song's name
@@ -17,7 +17,7 @@ This will show the following information about the song in your terminal/bash wi
 * if no song is provided then your program will default to
     * "The Sign" by Ace of Base
 
-1. node liri.js movie-this '<movie name here>'.
+3. "node liri.js movie-this '<movie name here>'"
 This will output the following information to your terminal/bash window:
 
     * Title of the movie.
@@ -34,6 +34,6 @@ This will output the following information to your terminal/bash window:
     * If you haven't watched "Mr. Nobody," then you should: http://www.imdb.com/title/tt0485947/
     * It's on Netflix!
 
-1. node liri.js do-what-it-says.
+4. "node liri.js do-what-it-says"
 Using the fs Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
 It should run spotify-this-song for "Lose Yourself" as follows the text in random.txt.
