@@ -5,10 +5,10 @@ LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and R
 You can enter the following commands:
 
 1. node liri.js my-tweets
-* This will show your last 20 tweets and when they were created at in your terminal/bash window.
+This will show your last 20 tweets and when they were created at in your terminal/bash window.
 
 2. node liri.js spotify-this-song '<song name here>'
-* This will show the following information about the song in your terminal/bash window
+This will show the following information about the song in your terminal/bash window
     * Artist(s)
     * The song's name
     * A preview link of the song from Spotify
@@ -18,7 +18,7 @@ You can enter the following commands:
     * "The Sign" by Ace of Base
 
 3. node liri.js movie-this '<movie name here>'
-* This will output the following information to your terminal/bash window:
+This will output the following information to your terminal/bash window:
 
     * Title of the movie.
     * Year the movie came out.
