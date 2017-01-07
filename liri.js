@@ -63,7 +63,7 @@ function myTweets(){
 
 	client.get('statuses/user_timeline', params, function(error, tweets, response) {
 	  if (!error) {
-	  	for (var i=0; i<20;i++) {;
+	  	for (var i=0; i<20;i++) {
 	  		console.log('-------------------------------------');
 	  		console.log('Tweet: '+tweets[i].text);
 	  		console.log('Created: '+tweets[i].created_at);
@@ -104,7 +104,7 @@ function spotifyData() {
 	    console.log('* Preview Link: '+data.tracks.items[0].preview_url);
 	    console.log('* Album: '+data.tracks.items[0].album.name);
 
-	    fs.appendFile('log.txt', '\n\nspotify-this-song')
+	    fs.appendFile('log.txt', '\n\nspotify-this-song');
 	    fs.appendFile('log.txt', '\n* Artist: '+data.tracks.items[0].album.artists[0].name);
 	    fs.appendFile('log.txt', '\n* Song: '+data.tracks.items[0].name);
 	    fs.appendFile('log.txt', '\n* Preview Link: '+data.tracks.items[0].preview_url);
